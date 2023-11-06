@@ -42,7 +42,7 @@ function install () {
 }
 
 if [ -d "$INSTALL_DIR/$TAR_DIR" ]; then
-  if yes_or_no "$INSTALL_DIR/$TAR_DIR already exists. Would you like to reinstall? This will remove your current installation and configuration!\n"; then
+  if yes_or_no "$INSTALL_DIR/$TAR_DIR already exists. Would you like to reinstall? This will remove your current installation and configuration!"; then
     rm -rf "${INSTALL_DIR:?$HOME}/$TAR_DIR"
     install
   fi 
