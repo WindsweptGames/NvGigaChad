@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#set -u
+
 INSTALL_DIR=$HOME
 TAR_DIR="nvim-linux64"
 green=$(tput setaf 2)
