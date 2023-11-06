@@ -1,2 +1,4 @@
 # nvchad-install
-install scripts for Neovim using my custom NvChad configuration
+Install scripts for Neovim using my custom NvChad configuration.
+
+Run with ```command```
