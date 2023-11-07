@@ -1,5 +1,5 @@
 # nvchad-install
-Install scripts for Neovim using my custom NvChad configuration.
+Install scripts for Neovim using my custom NvChad configuration. Supports Linux/Unix and MacOS.
 
 gcc, g++, unzip, python, pip, and npm must be installed for all plugins and language servers to install successfully. Go and Rust environments and langauge servers (gospl, rsl) are required for the associated plugins to function. 
 

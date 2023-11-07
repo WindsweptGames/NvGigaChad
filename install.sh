@@ -2,6 +2,7 @@
 
 INSTALL_DIR=$HOME
 TAR_DIR="nvim-linux64"
+INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
 green=$(tput setaf 2)
 yellow=$(tput setaf 3)
 red=$(tput setaf 1)
@@ -19,8 +20,15 @@ function printrln () {
   printf '%s%s%s\n' "${red}" "$1" "${normal}"
 }
 
+
+platform=$(uname -a | awk '{print $1;}' | head -n 1)
+if [ "$platform" = "Darwin" ]; then
+    INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-macos.tar.gz"
+    TAR_DIR="nvim-macos"
+fi
+
 if [ $# -eq 0 ]; then
-    printyln "No installation directory provided, installing to $INSTALL_DIR"
+    printyln "No installation directory provided, defaulting to $INSTALL_DIR"
   else
     INSTALL_DIR=$1
     printgln "Installing to $INSTALL_DIR"
@@ -39,7 +47,7 @@ function yes_or_no () {
 function install () {
   printgln 'Fetching Neovim...'
   mkdir -p "$INSTALL_DIR"
-  curl -L -o "$INSTALL_DIR/nvim.tar.gz" https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+  curl -L -o "$INSTALL_DIR/nvim.tar.gz" "$INSTALL_LINK" 
   tar -zxf "$INSTALL_DIR/nvim.tar.gz" -C "$INSTALL_DIR"
   rm "$INSTALL_DIR/nvim.tar.gz"
   cmd="$INSTALL_DIR/$TAR_DIR/bin/nvim --version"
@@ -50,7 +58,7 @@ function install () {
     git clone https://github.com/NvChad/NvChad "$HOME/.config/nvim" --depth 1
     git clone https://github.com/aWindsweptEmu/nvchad-custom "$HOME/.config/nvim/lua/custom" --depth 1
   else
-    printyln "Could not verify nvim installation, exiting..."
+    printrln "Could not verify nvim installation, exiting..."
     exit 1
   fi
   printgln "Installation complete. Plugins will be installed when Neovim is started for the first time."
@@ -65,7 +73,8 @@ function uninstall () {
 }
 
 if [ -d "$INSTALL_DIR/$TAR_DIR" ]; then
-  if yes_or_no "$INSTALL_DIR/$TAR_DIR already exists. Would you like to reinstall? ${red}This will remove your current installation and configuration!${normal}"; then
+  printyln "$INSTALL_DIR/$TAR_DIR already exists. Would you like to reinstall?" 
+  if yes_or_no "${red}WARNING: This will replace your current installation and configuration! Continue?${normal}"; then
     uninstall
     install
   fi 
