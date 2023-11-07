@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#set -u
-
 INSTALL_DIR=$HOME
 TAR_DIR="nvim-linux64"
 green=$(tput setaf 2)
@@ -49,19 +47,26 @@ function install () {
   printgln "Updating config at $HOME/.config/nvim"
   if [ "$check" = "NVIM" ]; then
     #install was successful so lets add the config
-    rm -rf "$HOME/.config/nvim"
     git clone https://github.com/NvChad/NvChad "$HOME/.config/nvim" --depth 1
     git clone https://github.com/aWindsweptEmu/nvchad-custom "$HOME/.config/nvim/lua/custom" --depth 1
   else
-    printyln "Could not verify nvim, exiting..."
+    printyln "Could not verify nvim installation, exiting..."
     exit 1
   fi
+  printgln "Installation complete. Plugins will be installed when Neovim is started for the first time."
   printgln "Make sure to add Neovim to your path: export PATH=\$PATH:$INSTALL_DIR/$TAR_DIR/bin"
+}
+
+function uninstall () {
+    printyln "Removing prior installation..."
+    rm -rf "$HOME/.config/nvim"
+    rm -rf "$HOME/.local/share/nvim"
+    rm -rf "${INSTALL_DIR:?$HOME}/$TAR_DIR"
 }
 
 if [ -d "$INSTALL_DIR/$TAR_DIR" ]; then
   if yes_or_no "$INSTALL_DIR/$TAR_DIR already exists. Would you like to reinstall? ${red}This will remove your current installation and configuration!${normal}"; then
-    rm -rf "${INSTALL_DIR:?$HOME}/$TAR_DIR"
+    uninstall
     install
   fi 
 else
