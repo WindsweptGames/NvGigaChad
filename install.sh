@@ -56,7 +56,7 @@ function install () {
   if [ "$check" = "NVIM" ]; then
     #install was successful so lets add the config
     git clone https://github.com/NvChad/NvChad "$HOME/.config/nvim" --depth 1
-    git clone https://github.com/aWindsweptEmu/nvchad-custom "$HOME/.config/nvim/lua/custom" --depth 1
+    git clone https://github.com/aWindsweptEmu/NvGigaChad-Config "$HOME/.config/nvim/lua/custom" --depth 1
   else
     printrln "Could not verify nvim installation, exiting..."
     exit 1
