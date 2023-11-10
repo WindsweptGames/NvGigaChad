@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
 INSTALL_DIR="${HOME:-/home/default}"
-CONFIG_DIR="$HOME/.config/nvim"
-PLUGIN_DIR="$HOME/.local/share/nvim"
+CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}"
+DATA_HOME="${XDG_DATA_HOME:-"$HOME/.local/share"}"
+STATE_HOME="${XDG_STATE_HOME:-"$HOME/.local/state"}"
+CONFIG_DIR="$CONFIG_HOME/nvim"
+DATA_DIR="$DATA_HOME/nvim"
+STATE_DIR="$STATE_HOME/nvim"
 
 # set platform specific download link and install directory
 INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
@@ -46,12 +50,13 @@ function should_abort () {
 }
 
 function install_neovim () {
-  if [ -d "$INSTALL_DIR/$TAR_DIR" ]; then
-    printyln "$INSTALL_DIR/$TAR_DIR already exists. Would you like to update Neovim?" 
+  if [ -d "$INSTALL_DIR/$TAR_DIR" ] || [ -d "$DATA_DIR" ] || [ -d "$STATE_DIR" ]; then
+    printyln "Installation already exists. Would you like to re-install Neovim?" 
     if yes_or_no "${red}WARNING: This will remove your existing installation! Continue?"; then
       printyln "Removing prior neovim installation..."
-      rm -rf "${INSTALL_DIR:?/home/default}/${TAR_DIR:?nvim}"
-      rm -rf "$PLUGIN_DIR"
+      rm -rf "${INSTALL_DIR:?"/home/default"}/${TAR_DIR:?"nvim"}"
+      rm -rf "$DATA_DIR"
+      rm -rf "$STATE_DIR"
     else
       return 1
     fi 
@@ -83,8 +88,8 @@ function install_config () {
     fi 
   fi
   printgln "Fetching config..."
-  git clone https://github.com/NvChad/NvChad "$HOME/.config/nvim" --depth 1
-  git clone https://github.com/aWindsweptEmu/NvGigaChad-Config "$HOME/.config/nvim/lua/custom" --depth 1
+  git clone https://github.com/NvChad/NvChad "$CONFIG_DIR" --depth 1
+  git clone https://github.com/aWindsweptEmu/NvGigaChad-Config "$CONFIG_DIR/lua/custom" --depth 1
   printgln "Configuration installation complete."
   return 0
 }
