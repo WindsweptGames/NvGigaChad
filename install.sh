@@ -41,10 +41,10 @@ function yes_or_no () {
 
 function should_abort () {
     while true; do
-        read -rp "$* [y/N]: ${normal}" yn
+        read -rp "$* [Y/n]: ${normal}" yn
         case $yn in
-            [Yy]*) return 0;;  
-            *) printrln "Aborted!"; exit 1;;
+            [Nn]*) printrln "Aborted!"; exit 1;;  
+            *) return 0;;
         esac
     done
 }
