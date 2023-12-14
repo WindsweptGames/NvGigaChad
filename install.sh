@@ -89,7 +89,7 @@ function install_config () {
   fi
   printgln "Fetching config..."
   git clone https://github.com/NvChad/NvChad "$CONFIG_DIR" --depth 1
-  git clone https://git.windsweptgames.com/WindsweptGames/NvGigaChadConfig.git "$CONFIG_DIR/lua/custom" --depth 1
+  git clone https://git.windsweptgames.com/NvGigaChad/config.git "$CONFIG_DIR/lua/custom" --depth 1
   printgln "Configuration installation complete."
   return 0
 }
