@@ -11,7 +11,7 @@ STATE_DIR="$STATE_HOME/nvim"
 # set platform specific download link and install directory
 INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
 CONFIG_GIT="https://git.windsweptgames.com/NvGigaChad/config.git"
-if [ "$1" = "github" ]; then
+if [ "$1" = "-github" ]; then
   CONFIG_GIT="https://github.com/WindsweptGames/NvGigaChadConfig.git"
   echo "Using github to pull configuration"
 fi
