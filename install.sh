@@ -10,6 +10,11 @@ STATE_DIR="$STATE_HOME/nvim"
 
 # set platform specific download link and install directory
 INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
+CONFIG_GIT="https://git.windsweptgames.com/NvGigaChad/config.git"
+if [ "$1" = "github" ]; then
+  CONFIG_GIT="https://github.com/WindsweptGames/NvGigaChadConfig.git"
+  echo "Using github to pull configuration"
+fi
 TAR_DIR="nvim-linux64"
 platform=$(uname -a | awk '{print $1;}' | head -n 1)
 if [ "$platform" = "Darwin" ]; then
@@ -89,7 +94,7 @@ function install_config () {
   fi
   printgln "Fetching config..."
   git clone https://github.com/NvChad/NvChad "$CONFIG_DIR" --depth 1
-  git clone https://git.windsweptgames.com/NvGigaChad/config.git "$CONFIG_DIR/lua/custom" --depth 1
+  git clone "$CONFIG_GIT" "$CONFIG_DIR/lua/custom" --depth 1
   printgln "Configuration installation complete."
   return 0
 }
