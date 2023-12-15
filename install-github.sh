@@ -10,7 +10,7 @@ STATE_DIR="$STATE_HOME/nvim"
 
 # set platform specific download link and install directory
 INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
-CONFIG_GIT="https://git.windsweptgames.com/NvGigaChad/config.git"
+CONFIG_GIT="https://github.com/WindsweptGames/NvGigaChadConfig.git"
 TAR_DIR="nvim-linux64"
 platform=$(uname -a | awk '{print $1;}' | head -n 1)
 if [ "$platform" = "Darwin" ]; then
