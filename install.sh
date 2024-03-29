@@ -89,8 +89,12 @@ function install_config () {
     fi 
   fi
   printgln "Fetching config..."
-  git clone https://github.com/NvChad/NvChad "$CONFIG_DIR" --depth 1
+  git clone https://github.com/NvChad/starter "$CONFIG_DIR" --depth 1
+  printgln "Removing $CONFIG_DIR/.git folder..."
+  rm -rf "$CONFIG_DIR/.git"
   git clone "$CONFIG_GIT" "$CONFIG_DIR/lua/custom" --depth 1
+  printgln "Removing $CONFIG_DIR/lua/custom/.git folder..."
+  rm -rf "$CONFIG_DIR/lua/custom/.git"
   printgln "Configuration installation complete."
   return 0
 }
