@@ -14,8 +14,8 @@ CONFIG_GIT="https://git.windsweptgames.com/NvGigaChad/config.git"
 TAR_DIR="nvim-linux64"
 platform=$(uname -a | awk '{print $1;}' | head -n 1)
 if [ "$platform" = "Darwin" ]; then
-    INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-macos.tar.gz"
-    TAR_DIR="nvim-macos"
+    INSTALL_LINK="https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
+    TAR_DIR="nvim-macos-arm64"
 fi
 
 # helpers for colorful output
